@@ -34,17 +34,63 @@ const bdgetCart = async (req, res) => {
   }
 }
 
-
 const addProductToCart = async (req, res) => {
-  const { cid, pid } = req.params;
-  const product = await Products.getProductId(pid);
-  if (product) {
-    const respuesta = await Carts.addProductToCarts(cid,product);
-    return(product)
-  }else{
-    res.json(product)
+  const { cid, pid } = req.params
+  const product = await Products.getProductId(pid)
+
+  if (!product) {
+    return res.status(400).json({
+      msg: `El producto con el id ${pid} no existe`,
+      ok: false,
+    })
   }
-}
+
+  const cart = Carts.getCartByUsername(cid)
+
+  if (!cart) {
+    const newCart = {
+      priceTotal: product.price,
+      quantityTotal: 1,
+      products: [product],
+      username: cid
+    }
+
+    const cartToSave = await Carts.addProductToCarts(newCart)
+
+    return res.status(200).json({
+      msg: 'Carritp creado con exito',
+      cart: cartToSave
+    })
+  }
+
+  // const findProduct = cart.products.find((product) => 
+// product.id
+//  === pid)
+
+  if (!findProduct) {
+    cart.products.push(product)
+    cart.quantity = cart.quantity + 1
+    // cart.priceTotal = cart.products.reduce(())
+
+    const cartToUpdate = await Cart.updateProductToCart(cart)
+
+    return res.status(201).json({
+      msg: 'Producto agregado al carrito',
+      cart: cartToUpdate,
+    })
+  }
+} 
+
+// const addProductToCart = async (req, res) => {
+//   const { cid, pid } = req.params;
+//   const product = await Products.getProductId(pid);
+//   if (product) {
+//     const respuesta = await Carts.addProductToCarts(cid,product);
+//     return(product)
+//   }else{
+//     res.json(product)
+//   }
+// }
 
 
 module.exports = {
