@@ -58,19 +58,19 @@ const addProductToCart = async (req, res) => {
     const cartToSave = await Carts.addProductToCarts(newCart)
 
     return res.status(200).json({
-      msg: 'Carritp creado con exito',
+      msg: 'Carrito creado con exito',
       cart: cartToSave
     })
   }
+  //   const findProduct = cart.products.find((product) => 
+  // product.id
+  //  === pid)
 
-  // const findProduct = cart.products.find((product) => 
-// product.id
-//  === pid)
-
+  
   if (!findProduct) {
     cart.products.push(product)
     cart.quantity = cart.quantity + 1
-    // cart.priceTotal = cart.products.reduce(())
+    cart.priceTotal = cart.products.reduce((Acomulador, ProductoActual)=> Acomulador + ProductoActual.quantity, 0)
 
     const cartToUpdate = await Cart.updateProductToCart(cart)
 
