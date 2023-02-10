@@ -34,8 +34,7 @@ const connectionSocket = (httpServer)=>{
  const emitDeleteMj = (message)=>{
     console.log(`Mensaje Eliminado: ${JSON.stringify(message)}`)
     io.emit('delete-message', message)
-}
-
+} 
 
   
 module.exports = {

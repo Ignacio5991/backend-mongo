@@ -45,19 +45,13 @@ class BdCartsManager {
         }
     }
 
-    addProductToCarts = async (cid, product) => {
-        const cart = await cartsModel.findById(cid);
-        console.log(JSON.stringify(product))
-        const resultado = cart.products.findIndex((prod) => prod.id == product.id)
-        console.log(resultado)
-        if (resultado === -1){
-        }else {
-
-        }
+    addProductToCarts = async (newChango) => {
+      const creatChango = await cartsModel.create(newChango);
+      return creatChango;
     }
     
     updateCartProducts = async (cart) => {
-        const cartUpdated = await Carts.findOneAndUpdate({username: cart.username}, cart,{
+        const cartUpdated = await cartsModel.findOneAndUpdate({username: cart.username}, cart,{
             new: true
          });
         return cartUpdated

@@ -6,7 +6,7 @@ socket.on('init-products', (products)=>{
     products.forEach(product => {
         rowProducts.innerHTML +=
 
-           `<div class="card col-3 m-2 border border-4 id="${product.id} style="width: 18rem;">
+           `<div class="card col-3 m-2 border border-4 id="${product.id}" style="width: 18rem";>
              <img src="${product.thumbnail}" class="card-img-top" alt="">
               <div class="card-body">
                 <h5 class="card-title text-center">${product.title}</h5>

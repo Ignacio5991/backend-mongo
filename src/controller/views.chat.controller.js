@@ -30,7 +30,7 @@ const getsendMessage = async(req, res)=>{
     return res.json({
       msg: 'Chats',
       chats:getMessage
-    });      
+    });    
  }
 
 }
